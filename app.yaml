@@ -1,0 +1,6 @@
+name: Jeu Snake
+description: Jeu Snake complet avec menu, tableau des scores persistent et synchronisation matrice LED.
+ports: []
+bricks:
+- arduino:web_ui: {}
+icon: 😀
