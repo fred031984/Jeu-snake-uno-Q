@@ -1,0 +1,118 @@
+<!--
+SPDX-FileCopyrightText: Copyright (C) Arduino s.r.l. et/ou ses sociétés affiliées
+
+SPDX-License-Identifier: MPL-2.0
+-->
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu Snake</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <!-- Indicateur d'état de connexion -->
+    <div class="etat_connexion deconnecte" id="etatConnexion">Connexion...</div>
+    
+    <div class="conteneur">
+        <!-- En-tête avec titre et logo -->
+        <div class="entete">
+            <h1 class="texte_arduino">Jeu Snake</h1>
+            <img class="logo_arduino" src="img/RGB-Arduino-Logo_Color Inline Loop.svg" alt="Logo Arduino">
+        </div>
+        
+        <!-- 🎯 NOUVEAU: Menu Principal -->
+        <div class="menu_principal" id="menuPrincipal">
+            <div class="boite_menu">
+                <h2>MENU PRINCIPAL</h2>
+                <div class="boutons_menu">
+                    <button class="btn_menu" id="btnJouer">🎮 JOUER</button>
+                    <button class="btn_menu" id="btnScores">🏆 SCORES</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 🎯 NOUVEAU: Tableau des Scores -->
+        <div class="tableau_scores" id="tableauScores" style="display: none;">
+            <div class="boite_scores">
+                <h2>🏆 TOP 10 SCORES 🏆</h2>
+                <div class="contenu_scores">
+                    <table class="table_scores">
+                        <thead>
+                            <tr>
+                                <th>Rang</th>
+                                <th>Nom</th>
+                                <th>Score</th>
+                                <th>Repas</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="corpsTableau">
+                            <!-- Rempli par JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn_menu" id="btnRetourScores">← RETOUR</button>
+            </div>
+        </div>
+        
+        <!-- 🎯 NOUVEAU: Dialog d'entrée du nom -->
+        <div class="dialog_nom" id="dialogNom" style="display: none;">
+            <div class="boite_dialogue">
+                <h2>PARTIE TERMINÉE!</h2>
+                <div class="infos_partie">
+                    <p>Score: <strong id="scorePartie">0</strong> points</p>
+                    <p>Repas mangés: <strong id="repasPartie">0</strong></p>
+                </div>
+                <div class="formulaire_nom">
+                    <label for="nomJoueur">Entrez votre nom:</label>
+                    <input type="text" id="nomJoueur" placeholder="Votre nom..." maxlength="20">
+                </div>
+                <div class="boutons_dialogue">
+                    <button class="btn_dialogue btn_sauvegarder" id="btnSauvegarder">💾 SAUVEGARDER</button>
+                    <button class="btn_dialogue btn_annuler" id="btnAnnuler">✕ ANNULER</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conteneur principal du jeu -->
+        <div class="conteneur_jeu" id="conteneurJeu" style="display: none;">
+            <!-- Canvas de rendu du jeu -->
+            <canvas id="canvasJeu" width="800" height="400"></canvas>
+            
+            <!-- Section d'informations du jeu -->
+            <div class="infos_jeu">
+                <div class="affichage_score">
+                    <span class="label_score">Score:</span>
+                    <span id="score" class="valeur_score">00000</span>
+                    <span class="label_meilleur_score">MEILLEUR:</span>
+                    <span id="meilleurScore" class="valeur_meilleur_score">00000</span>
+                </div>
+                
+                <div class="infos_controles" id="infosControles">
+                    <span class="element_controle">
+                        <span class="icone_touche">↑↓←→</span> ou <span class="icone_touche">ZQSD</span> Déplacer
+                    </span>
+                    <span class="separateur_controle">•</span>
+                    <span class="element_controle">
+                        <span class="icone_touche">ESPACE</span> Pause
+                    </span>
+                    <span class="separateur_controle">•</span>
+                    <span class="element_controle">
+                        <span class="icone_touche">M</span> Menu
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Conteneur de messages d'erreur -->
+            <div id="conteneurErreur" class="message_erreur" style="display: none;"></div>
+        </div>
+    </div>
+    
+    <!-- 🔧 CORRECTION: Charger Socket.IO depuis CDN + app.js -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
